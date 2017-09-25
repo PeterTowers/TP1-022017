@@ -7,10 +7,18 @@ object GameInterface {
 
   controle = scala.io.StdIn.readInt()
 
-  TestarValidade.simOuNao(controle)
+  controle = TestarValidade.simOuNao(controle)
 
   while (controle == 1) {
     //chamar funcao para posicionar as embarcacoes
+    println("Deseja posicionar seus navios de forma aleatoria? (Sim: 1 | Nao: 0)")
+    controle = scala.io.StdIn.readInt()
+    controle = TestarValidade.simOuNao(controle)
+
+    if (controle == 1)
+      //PosicionaAle
+    else
+      //PosicionaManual
 
     println("Deseja jogar novamente? (Sim: 1 | Nao: 0)")
     controle = scala.io.StdIn.readInt()

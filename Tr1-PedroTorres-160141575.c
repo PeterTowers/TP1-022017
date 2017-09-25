@@ -6,8 +6,8 @@
  * Matrícula: 16/0141575
  * Matéria: Estrutura de Dados, turma B
  * Data de criação do código: 02/04/2017
- * Editado em: 05/04/17, 06/04/17, 07/04/17; 
- * 
+ * Editado em: 05/04/17, 06/04/17, 07/04/17; 25/09/2017; 
+ */
 */
 
 /* ---Bibliotecas--- */
@@ -21,7 +21,7 @@ struct Navio{
     char classe[17];    /* Nome da embarcacao */
     char desig;         /* Primeira letra (exceto no caso do contratorpedeiro) que sera impressa no tabuleiro */
     int qtd;            /* Numero de embarcacoes disponiveis para posicionar */
-    int tam;            /* Quantidade de embarcacoes da classe disponiveis */
+    int tam;            /* Numero de celulas ocupadas pela embarcacao */
 };
 
 struct Navio Embarc[] = {           /* Atribuicao dos valores para a estrutura */
