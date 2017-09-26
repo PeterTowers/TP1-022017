@@ -1,36 +1,36 @@
 object GameInterface {
-  var controle = -1
 
-  println("\nBem vindo ao programa Batalha Nautica!\nEste programa simula o jogo Batalha Naval, com a opcao de " +
-    "preencher o tabuleiro automaticamente.")
-  println("Deseja jogar? (Sim: 1 | Nao: 0)")
+  def  pushStartButton : Int = {
+    var control = - 1
 
-  controle = scala.io.StdIn.readInt()
+    println ("\nBem vindo ao programa Batalha Nautica!\nEste programa simula o jogo Batalha Naval, com a opcao de preencher o tabuleiro automaticamente.")
+    println ("Deseja jogar? (Sim: 1 | Nao: 0)")
 
-  controle = TestarValidade.simOuNao(controle)
+    control = scala.io.StdIn.readInt ()
 
-  while (controle == 1) {
-    //chamar funcao para posicionar as embarcacoes
-    println("Deseja posicionar seus navios de forma aleatoria? (Sim: 1 | Nao: 0)")
-    controle = scala.io.StdIn.readInt()
-    controle = TestarValidade.simOuNao(controle)
+    control = TestarValidade.simOuNao (control)
 
-    if (controle == 1)
-      //PosicionaAle
-    else
-      //PosicionaManual
-
-    println("Deseja jogar novamente? (Sim: 1 | Nao: 0)")
-    controle = scala.io.StdIn.readInt()
-
-    controle = TestarValidade.simOuNao(controle)
-
-    if (controle == 0) {
-      println("Obrigado por jogar e volte sempre!")
-      System.exit(0)
-    }
+    return control
   }
 
-  println("Obrigado por usar o programa!")
+  def insertCoin() : Int = {
+    var control = -1
+
+    println("Deseja jogar novamente? (Sim: 1 | Nao: 0)")
+    control = scala.io.StdIn.readInt()
+
+    control = TestarValidade.simOuNao(control)
+
+    return control
+  }
+
+  def gameOver() : Unit = {
+    println("Obrigado por jogar e volte sempre!")
+    System.exit(0)
+  }
+
+  def endGame() : Unit = {
+    println("Obrigado por usar o programa!")
+  }
 
 }
