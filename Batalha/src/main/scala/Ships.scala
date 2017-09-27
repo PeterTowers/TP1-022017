@@ -1,18 +1,11 @@
-trait Ships {
+class Ships(val name: String, val desig: Char, val size: Int, var quant: Int, var isdown: Boolean) {
 
-  val name  : String
-  val desig : Char
-  val size  : Int
+def setQuant (i : Int): Unit = {
+  quant = i
+}
 
-  var quant : Int
-  var isdown: Boolean
-
-  def setQuant (i : Int): Unit = {
-    quant = i
-  }
-
-  def setState (b : Boolean): Unit = {
-    isdown = b
-  }
+def setState (b : Boolean): Unit = {
+  isdown = b
+}
 
 }
