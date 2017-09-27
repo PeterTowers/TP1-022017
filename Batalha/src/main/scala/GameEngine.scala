@@ -1,12 +1,11 @@
 object GameEngine {
   var coin : Int = -1
 
-  coin = GameInterface.pushStartButton
+  coin = GameInterface.pushStartButton()
 
   while (coin == 1) {
 
-    if (coin == 1)
-      //PositionShips
+    //PositionShips
 
     coin = GameInterface.insertCoin()
 

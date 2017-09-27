@@ -1,6 +1,6 @@
 object GameInterface {
 
-  def  pushStartButton : Int = {
+  def  pushStartButton() : Int = {
     var control = - 1
 
     println ("\nBem vindo ao programa Batalha Nautica!\nEste programa simula o jogo Batalha Naval, com a opcao de preencher o tabuleiro automaticamente.")
