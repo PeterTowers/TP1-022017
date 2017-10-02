@@ -336,7 +336,7 @@ void marinheiro (int colunas, int linhas, int ***player) {  /* Funcao marinheiro
                         if (player[j][y][0] != '~')
                             flag = 1;                   /* Levanta a flag caso a embarcacao fique em um espaco ja ocupado por outra */
                 
-                if (flag == 0) {                            /* Caso a flag nao tenha sido levantada pelo teste anterior, posiciona a embarcacao utilizando o laco for */
+                if (flag == 0) {                        /* Caso a flag nao tenha sido levantada pelo teste anterior, posiciona a embarcacao utilizando o laco for */
                     for(j = x; j < x+Embarc[i].tam; j++)
                         player[j][y][0] = Embarc[i].desig;
                     qtd--;                                  /* Reduz em uma unidade a variavel qtd */
