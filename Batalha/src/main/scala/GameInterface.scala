@@ -6,7 +6,7 @@ object GameInterface {
     println ("\nBem vindo ao programa Batalha Nautica!\nEste programa simula o jogo Batalha Naval, com a opcao de preencher o tabuleiro automaticamente.")
     println ("Deseja jogar? (Sim: 1 | Nao: 0)")
 
-    control = scala.io.StdIn.readInt ()
+    control = scala.io.StdIn.readInt()
 
     control = TestarValidade.simOuNao (control)
 

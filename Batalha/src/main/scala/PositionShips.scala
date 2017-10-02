@@ -1,6 +1,7 @@
 object PositionShips {
-  var xsize = 10
-  var ysize = 10
+  val xsize = 10
+  val ysize = 10
+  val zsize = 2
   var control = -1
 
   println("Player 1, deseja que seus navios sejam posicionados aleatoriamente no tabuleiro? (Sim: 1 | Nao: 0)")
@@ -8,7 +9,7 @@ object PositionShips {
   control = TestarValidade.simOuNao(control)
 
   if (control == 1) {
-    //Criar tabuleiro p/ player 1
+    var player1table = SetTable.setTable(xsize, ysize, zsize)
     //Random
   }
   else {
