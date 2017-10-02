@@ -8,9 +8,11 @@ object PositionShips {
   control = scala.io.StdIn.readInt()
   control = TestarValidade.simOuNao(control)
 
+  var player1Table = Array.ofDim[Char](xsize, ysize, zsize)
+
   if (control == 1) {
-    var player1table = SetTable.setTable(xsize, ysize, zsize)
-    //Random
+
+    //SetTable.setRandom(player1Table)
   }
   else {
     //Criar tabuleiro p/ player 1
