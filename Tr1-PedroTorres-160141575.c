@@ -8,7 +8,6 @@
  * Data de criação do código: 02/04/2017
  * Editado em: 05/04/17, 06/04/17, 07/04/17; 25/09/2017; 
  */
-*/
 
 /* ---Bibliotecas--- */
 #include <stdio.h>
@@ -243,11 +242,12 @@ void almirante (int colunas, int linhas, int ***player) {   /* Funcao almirante:
         while (flag != 0) {
             printf("Em qual linha deseja posicionar sua embarcacao? ");     /* Pergunta e recebe a linha onde a embarcacao sera posicionada */
             scanf("%i", &y);
+            
+            teste(y, 1, linhas, 2);         /* Verifica a validez da variavel y */
+            
             printf("Em qual coluna deseja posicionar sua embarcacao? ");    /* Pergunta e recebe a coluna onde a embarcacao sera posicionada */
             scanf("%i", &x);
-        
-            teste(y, 1, linhas, 2);         /* Verifica a validez da variavel y */
-        
+            
             teste(x, 1, colunas, 2);        /* Verifica a validez da variavel x */
         
             x = x-1;    /* Ajustes para adequar a matriz */
