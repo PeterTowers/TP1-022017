@@ -11,12 +11,10 @@ object PositionShips {
   var player1Table = Array.ofDim[Char](xsize, ysize, zsize)
 
   if (control == 1) {
-
-    //SetTable.setRandom(player1Table)
+    player1Table = SetTable.setRandom()
   }
   else {
-    //Criar tabuleiro p/ player 1
-    //Manual
+    //player1Table = SetTable.setManual()
   }
 
   println("Player 2, deseja que seus navios sejam posicionados aleatoriamente no tabuleiro? (Sim: 1 | Nao: 0)")
