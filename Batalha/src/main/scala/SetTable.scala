@@ -15,8 +15,8 @@ object SetTable {
     var i = 0
 
     while (i < 4) {
-      var x = Random.nextInt() % xsize
-      var y = Random.nextInt() % ysize
+      val x = Random.nextInt() % xsize
+      val y = Random.nextInt() % ysize
 
       if ((x % 2) == 0) { //Caso j seja par, a embarcacao sera posicionada na horizontal
         a = setHorizontal(x, y, a)
@@ -25,21 +25,17 @@ object SetTable {
         a = setVertical(x, y, a)
       }
       if (current.quant == 0) {
-        i match {
-          case 0 => current = battleship
-          case 1 => current = cruiser
-          case 2 => current = submarine
-          case 3 => current = destroyer
-        }
+        matchShip(i)
         i += 1
       }
     }
     return a
   }
 
-  def setManual(xsize: Int, ysize: Int, zsize: Int): Array[Array[Array[Char]]] = {
+  def setManual(): Array[Array[Array[Char]]] = {
     var a = setTable()
     var i = 0
+
     while (i < 4) {
       var flag = true
 
@@ -56,9 +52,23 @@ object SetTable {
 
         val y = getY(direction)
         val x = getX(direction)
+
+        flag = TestarValidade.testaPosicionamento(current, a, direction, x, y)
+
+        if (!flag) {
+          current.decreaseQuant()
+          if (direction == 2) {
+            a = setHorizontal(x, y, a)
+          }
+          else {
+            a = setVertical(x, y, a)
+          }
+        }
       }
-
-
+      if (current.quant == 0) {
+        matchShip(i)
+        i += 1
+      }
     }
     return a
   }
@@ -81,14 +91,14 @@ object SetTable {
 
     if (x + current.size < ysize) {
 
-      for (i <- x to (x + current.size - 1)) {
+      for ( i <- x until (x + current.size) ) {
         if ('~' != array(i)(y)(0)) {
           flag = false
         }
       }
 
       if (flag) {
-        for (i <- x to x + current.size - 1) {
+        for ( i <- x until (x + current.size) ) {
           array(i)(y)(0) = current.desig
         }
         current.decreaseQuant()
@@ -102,13 +112,13 @@ object SetTable {
     var flag = true
 
     if (y + current.size < xsize) {
-      for (j <- y to (x + current.size - 1))
+      for ( j <- y until (x + current.size) )
         if ('~' != array(x)(j)(0))
           flag = false
 
     }
     if (flag) {
-      for (j <- y to (x + current.size - 1))
+      for (j <- y until x + current.size)
         array(x)(j)(0) = current.desig
 
       current.decreaseQuant()
@@ -159,5 +169,14 @@ object SetTable {
     x = TestarValidade.maiorMenor(x, 1, xsize)
 
     return x
+  }
+  
+  private def matchShip(i: Int): Unit = {
+    i match {
+      case 0 => current = battleship
+      case 1 => current = cruiser
+      case 2 => current = submarine
+      case 3 => current = destroyer
+    }
   }
 }
