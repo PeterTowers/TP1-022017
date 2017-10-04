@@ -1,150 +1,87 @@
 import scala.util.Random
-import PositionShips.{xsize, ysize, zsize}
+import PositionShips.{xsize, ysize}
 
 object SetTable {
-  val carrier     = new Ships("Porta-Avioes", 'P', 5, 1)
-  val battleship  = new Ships("Encouracado", 'E', 4, 2)
-  val cruiser     = new Ships("Cruzador", 'C', 3, 3)
-  val submarine   = new Ships("Submarino", 'S', 3, 4)
-  val destroyer   = new Ships("Contratorpedeiro", 'T', 2, 5)
 
-  private var current: Ships = carrier
-
-  def setRandom(): Array[Array[Array[Char]]] = {
-    var a = setTable()
+  def setRandom(a: Table): Table = {
+    var current = new Ships("Porta-Avioes", 'P', 5, 1)
     var i = 0
 
-    while (i < 4) {
-      val x = Random.nextInt() % xsize
-      val y = Random.nextInt() % ysize
+    a.setTable()
 
-      if ((x % 2) == 0) { //Caso j seja par, a embarcacao sera posicionada na horizontal
-        a = setHorizontal(x, y, a)
+    while (i < 4) {
+      var x = Random.nextInt() % xsize: Int
+      if (x < 0)
+        x *= (-1)
+
+      var y = Random.nextInt() % ysize: Int
+      if (y < 0)
+        y *= (-1)
+
+      if ((x % 2) == 0) { //Caso x seja par, a embarcacao sera posicionada na horizontal
+        a.setHorizontal(x, y, current)
       }
-      else { //Caso j seja impar, a embarcacao sera posicionada na vertical
-        a = setVertical(x, y, a)
+      else { //Caso x seja impar, a embarcacao sera posicionada na vertical
+        a.setVertical(x, y, current)
       }
       if (current.quant == 0) {
-        matchShip(i)
+        current = matchShip(i)
         i += 1
       }
     }
     return a
   }
 
-  def setManual(): Array[Array[Array[Char]]] = {
-    var a = setTable()
+  def setManual(a: Table): Table = {
+    var current = new Ships("Porta-Avioes", 'P', 5, 1)
     var i = 0
+
+    a.setTable()
 
     while (i < 4) {
       var flag = true
 
       while (flag) {
-        printTable(a) // Imprime o tabuleiro para o jogador conferir as posicoes de suas embarcacoes
+        println()
+        a.printTable() // Imprime o tabuleiro para o jogador conferir as posicoes de suas embarcacoes
+        println()
 
-        print("Embarcacao atual: " + current.name + ". Ocupa " + current.size + " quadrantes, sua designacao " + current.desig + " aparecera no tabuleiro depois de")
+        print("Embarcacao atual: " + current.name + ". Ocupa " + current.size + " quadrantes, sua designacao " + current.desig + " aparecera no tabuleiro depois de ")
         println("posicionada.")
 
-        val direction = getDirection()
+        val direction = getDirection(current)
 
         println("O " + current.name + " ocupa " + current.size + " quadrantes. Em quais coordenadas deseja posiciona-lo? (O navio sera posicionado nas coordenadas")
         println("desejadas e ocupara as coordenadas subsequentes de acordo com a sua escolha de direcao)")
 
-        val y = getY(direction)
-        val x = getX(direction)
+        var y = getY(direction)
+        var x = getX(direction)
 
         flag = TestarValidade.testaPosicionamento(current, a, direction, x, y)
 
         if (!flag) {
+          x -= 1  // Ajustes para adequacao a matriz
+          y -= 1
+
           current.decreaseQuant()
+
           if (direction == 2) {
-            a = setHorizontal(x, y, a)
+            a.setHorizontal(x, y, current)
           }
           else {
-            a = setVertical(x, y, a)
+            a.setVertical(x, y, current)
           }
         }
       }
       if (current.quant == 0) {
-        matchShip(i)
+        current = matchShip(i)
         i += 1
       }
     }
     return a
   }
 
-  private def setTable(): Array[Array[Array[Char]]] ={
-    val a = Array.ofDim[Char](xsize, ysize, zsize)
-
-    for ( x <- 0 until xsize ) {
-      for ( y <- 0 until ysize ) {
-        a(x)(y)(0) = '~'
-        a(x)(y)(1) = 0
-      }
-    }
-    return a
-  }
-
-  private def setHorizontal(x: Int, y: Int, array: Array[Array[Array[Char]]]): Array[Array[Array[Char]]] = {
-
-    var flag = true
-
-    if (x + current.size < ysize) {
-
-      for ( i <- x until (x + current.size) ) {
-        if ('~' != array(i)(y)(0)) {
-          flag = false
-        }
-      }
-
-      if (flag) {
-        for ( i <- x until (x + current.size) ) {
-          array(i)(y)(0) = current.desig
-        }
-        current.decreaseQuant()
-
-      }
-    }
-    return array
-  }
-
-  private def setVertical(x: Int, y: Int, array: Array[Array[Array[Char]]]): Array[Array[Array[Char]]] = {
-    var flag = true
-
-    if (y + current.size < xsize) {
-      for ( j <- y until (x + current.size) )
-        if ('~' != array(x)(j)(0))
-          flag = false
-
-    }
-    if (flag) {
-      for (j <- y until x + current.size)
-        array(x)(j)(0) = current.desig
-
-      current.decreaseQuant()
-    }
-    return array
-  }
-
-  private def printTable(array: Array[Array[Array[Char]]]): Unit = {
-    print("  ")
-
-    for (j <- 1 to xsize) { // Laco para imprimir a numeracao das colunas
-      print(f"|$j%2d")
-    }
-    println('|')
-
-    for (j <- 0 until ysize) { // Laco para imprimir o restante do tabuleiro
-      print(f"${j+1}%2d")
-
-      for (k <- 0 until xsize) {
-        print("| " + array(j)(k)(0))
-      }
-      println('|')
-    } // Fim do laco
-  }
-
-  private def getDirection(): Int = {
+  private def getDirection(current: Ships): Int = {
     println("Deseja posicionar o " + current.name + " na vertical (1) ou horizontal (2)?")
     var direction = scala.io.StdIn.readInt()
 
@@ -170,13 +107,13 @@ object SetTable {
 
     return x
   }
-  
-  private def matchShip(i: Int): Unit = {
+
+  private def matchShip(i: Int): Ships = {
     i match {
-      case 0 => current = battleship
-      case 1 => current = cruiser
-      case 2 => current = submarine
-      case 3 => current = destroyer
+      case 0 => return(new Ships("Encouracado", 'E', 4, 2))
+      case 1 => return(new Ships("Cruzador", 'C', 3, 3))
+      case 2 => return(new Ships("Submarino", 'S', 3, 4))
+      case 3 => return(new Ships("Contratorpedeiro", 'T', 2, 5))
     }
   }
 }

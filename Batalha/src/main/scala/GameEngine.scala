@@ -5,7 +5,10 @@ object GameEngine {
 
   while (coin == 1) {
 
-    //PositionShips
+    PositionShips
+
+    PositionShips.player1Table.printTable()
+    PositionShips.player2Table.printTable()
 
     coin = GameInterface.insertCoin()
 

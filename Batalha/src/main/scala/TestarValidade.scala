@@ -32,40 +32,35 @@ object TestarValidade {
     return retorno
   }
 
-  def testaPosicionamento (current: Ships, array: Array[Array[Array[Char]]], direction: Int, x: Int, y: Int): Boolean = {
-    var flag = false
+  def testaPosicionamento (current: Ships, table: Table, direction: Int, x: Int, y: Int): Boolean = {
 
     if (direction == 1) {
       if ( (y+current.size) > PositionShips.ysize ) {
-        flag = true
         println("Sua entrada eh invalida, pois parte do seu navio ficaria fora do tabuleiro. Tente novamente.")
+        return true
       }
-      else {
-        for (j <- y until (y + current.size)) {
-          if (array(j)(x)(0) != '~') {
-            flag = true
-            println("Sua entrada eh invalida, pois seu este navio ficaria em uma posicao ja ocupada por outro. Tente novamente.")
-            return flag
-          }
+      for (j <- y until (y + current.size)) {
+        if (table.grid(j)(y)(0) != '~') {
+          println("Sua entrada eh invalida, pois seu este navio ficaria em uma posicao ja ocupada por outro. Tente novamente.")
+          return true
         }
       }
+
     }
     else {
       if ( (x+current.size) > PositionShips.xsize ) {
-        flag = true
         println("Sua entrada eh invalida, pois parte do seu navio ficaria fora do tabuleiro. Tente novamente.")
+        return true
       }
-      else {
-        for (j <- x until (x + current.size)) {
-          if (array(y)(j)(0) != '~') {
-            flag = true
-            println("Sua entrada eh invalida, pois seu este navio ficaria em uma posicao ja ocupada por outro. Tente novamente.")
-            return flag
-          }
+      for (i <- x until (x + current.size)) {
+        if (table.grid(y)(i)(0) != '~') {
+          println("Sua entrada eh invalida, pois seu este navio ficaria em uma posicao ja ocupada por outro. Tente novamente.")
+          return true
         }
       }
     }
-    return flag
+
+    return false
   }
 
 }
