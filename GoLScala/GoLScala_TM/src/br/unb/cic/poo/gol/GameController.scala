@@ -6,6 +6,8 @@ package br.unb.cic.poo.gol
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
+
+  val rules = new Conway {}
   
   def start {
     GameView.update
@@ -20,7 +22,7 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
-			GameEngine.makeCellAlive(i, j)
+			rules.makeCellAlive(i, j)
 			GameView.update
 		}
 		catch {
@@ -31,7 +33,7 @@ object GameController {
   }
   
   def nextGeneration {
-    GameEngine.nextGeneration
+    rules.nextGeneration
     GameView.update
   }
   

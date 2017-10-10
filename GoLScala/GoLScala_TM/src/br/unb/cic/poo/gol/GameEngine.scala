@@ -9,7 +9,7 @@ import scala.annotation.tailrec
  * 
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
-object GameEngine {
+abstract class GameEngine {
   
   val height = Main.height
   val width = Main.width
@@ -129,17 +129,11 @@ object GameEngine {
   }
   
   
-  /* verifica se uma celula deve ser mantida viva */
-  private def shouldKeepAlive(i: Int, j: Int): Boolean = {
-    (cells(i)(j).isAlive) &&
-      (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
+  /* metodo abstrato para verificar se uma celula deve ser mantida viva */
+  def shouldKeepAlive(i: Int, j: Int): Boolean
   
-  /* verifica se uma celula deve (re)nascer */
-  private def shouldRevive(i: Int, j: Int): Boolean = {
-    (!cells(i)(j).isAlive) && 
-      (numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
+  /* metodo abstrato para verificar se uma celula deve (re)nascer */
+  def shouldRevive(i: Int, j: Int): Boolean
 
   
   /*
@@ -156,6 +150,12 @@ object GameEngine {
       }
     }
     alive
+  }
+
+  def getNumberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
+    val alive = numberOfNeighborhoodAliveCells(i, j)
+
+    return alive
   }
 
 }
