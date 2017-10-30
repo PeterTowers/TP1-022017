@@ -6,8 +6,7 @@ package br.unb.cic.poo.gol
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameController {
-
-  val rules = new Rule
+  var rules = new RuleBook(new ConwayRules)
   
   def start {
     GameView.configureRules

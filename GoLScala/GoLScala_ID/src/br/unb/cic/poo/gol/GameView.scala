@@ -8,6 +8,9 @@ import scala.io.StdIn.{readInt, readLine}
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
 object GameView {
+	private final val CONWAY          = 1
+	private final val HIGHLIFE        = 2
+	//private final val SEEDS           = 3
   
 	private final val LINE = "+-----+"
 	private final val DEAD_CELL = "|     |"
@@ -23,7 +26,31 @@ object GameView {
 	 * o jogo a partir deste ponto.
    */
 	def configureRules: Unit = {
-		GameController.rules.getRule
+		var option = 0
+
+		do{
+			println("Which set of rules do you wish to use?\n\n")
+			println("[1] Conway")
+			println("[2] HighLife")
+			//println("[3] Seeds")
+
+			print("\n\n Rule: ")
+			option = parseOptions(scala.io.StdIn.readLine())
+		}while (option == 0)
+
+		option match {
+			case CONWAY		=> { }
+			case HIGHLIFE => GameController.rules = new RuleBook(new HighLifeRules)
+			//case SEEDS		=> return SEEDS
+			case _        => 0
+		}
+
+		def parseOptions(option: String): Int = option match {
+			case "1"  => CONWAY
+			case "2"  => HIGHLIFE
+			//case "3"  => SEEDS
+			case _    => INVALID_OPTION
+		}
 	}
   /**
 	 * Atualiza o componente view (representado pela classe GameBoard),
