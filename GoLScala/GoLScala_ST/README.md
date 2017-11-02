@@ -1,4 +1,4 @@
-# GameOfLife-S-ST
+# GameOfLife_ST
 A implementation of the main architecture of game of life in Scala.
 
 -------------

@@ -1,4 +1,4 @@
-# GameOfLife-SPartial
+# GameOfLife_ID
 A implementation of the main architecture of game of life in Scala.
 
 -------------
