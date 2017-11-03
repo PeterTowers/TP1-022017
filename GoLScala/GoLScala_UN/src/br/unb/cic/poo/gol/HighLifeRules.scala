@@ -1,5 +1,6 @@
 package br.unb.cic.poo.gol
 
+/* Conjunto de regras "High Life" que podem ser "injetadas" no programa. */
 class HighLifeRules extends Rules {
   val min_keep_alive    = 2
   val max_keep_alive    = 3

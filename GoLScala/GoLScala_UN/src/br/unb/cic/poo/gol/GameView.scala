@@ -2,11 +2,10 @@ package br.unb.cic.poo.gol
 
 import scala.io.StdIn.{readInt, readLine}
 
-/**
- * Representa o componente View do GoL
- * 
- * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
- */
+/** Representa o componente View do GoL.
+  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br)
+  * Refatorado por Pedro Torres no 2o semestre de 2017.
+  * */
 object GameView {
 	private final val CONWAY          = 1
 	private final val HIGHLIFE        = 2
@@ -71,7 +70,8 @@ object GameView {
 		if (shouldPrintOptions)
 			printOptions
 	}
-  
+
+	/* Mostra as opcoes na tela e direciona o jogo de acordo com a entrada do usuario */
   private def printOptions {
 	  
 	  var option = 0
@@ -107,7 +107,8 @@ object GameView {
       case _ => INVALID_OPTION
     }
 	}
-  
+
+  /* Revive uma celula, se possivel */
   private def makeCellAlive {
 	  
 	  var i = 0
@@ -125,9 +126,13 @@ object GameView {
     GameController.makeCellAlive(i, j)
 	}
 
+  /* Chama o metodo para computar a proxima geracao */
   private def nextGeneration = GameController.nextGeneration
+
+  /* Chama o metodo para encerrar o jogo */
   private def halt = GameController.halt
 
+  /* Recebe quantas geracoes devem ser simuladas automaticamente */
 	private def letItGo: Unit = {
     var generations = -1
 
@@ -144,15 +149,14 @@ object GameView {
 		else
 			GameController.letItGo(generations)
 	}
-	
+
+  /* Verifica se as coordenadas i e j sao validas */
   private def validPosition(i: Int, j: Int): Boolean = {
-		println(i);
-		println(j);
 		i >= 0 && i < Main.height && j >= 0 && j < Main.width
 	}
   
   /* Imprime uma linha usada como separador das linhas do tabuleiro */
-	/*private*/ def printLine() {
+	private def printLine() {
 	  for(j <- (0 until Main.width)) {
 	    print(LINE)
 	  }

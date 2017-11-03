@@ -1,15 +1,11 @@
 package br.unb.cic.poo.gol
 
 import scala.collection.mutable.ListBuffer
-import scala.util.control.TailCalls.TailRec
-import scala.annotation.tailrec
-import scala.util.Right
 
-/**
- * Representa a Game Engine do GoL 
- * 
- * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
- */
+/** Representa a Game Engine do GoL
+ *  @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br)
+ *  Refatorado por Pedro Torres no 2o semestre de 2017.
+ *  */
 abstract class GameEngine {
   
   val height = Main.height
@@ -30,23 +26,14 @@ abstract class GameEngine {
 
 
   /**
-	 * Calcula uma nova geracao do ambiente. Essa implementacao utiliza o
-	 * algoritmo do Conway, ou seja:
-	 * 
-	 * a) uma celula morta com exatamente tres celulas vizinhas vivas se torna
-	 * uma celula viva.
-	 * 
-	 * b) uma celula viva com duas ou tres celulas vizinhas vivas permanece
-	 * viva.
-	 * 
-	 * c) em todos os outros casos a celula morre ou continua morta.
+	 * Calcula uma nova geracao do ambiente. Essa implementacao utilizando um algoritmo definido nas classes que estendem
+   * o trait Rule.
 	 */
   
   def nextGeneration {
     val mustRevive = new ListBuffer[Cell]
     val mustKill = new ListBuffer[Cell]
 
-    
     for(i <- (0 until height)) {
       for(j <- (0 until width)) {
         if(shouldRevive(i, j)) {
@@ -57,8 +44,7 @@ abstract class GameEngine {
         }
       }
     }
-    
-    
+
     for(cell <- mustRevive) {
       cell.revive
       Statistics.recordRevive
@@ -68,8 +54,6 @@ abstract class GameEngine {
       cell.kill
       Statistics.recordKill
     }
-    
-    
   }
   
   /**
@@ -107,12 +91,10 @@ abstract class GameEngine {
       throw new IllegalArgumentException
     }
   }
-  
-  
+
   /**
-	 * Retorna o numero de celulas vivas no ambiente. 
-	 * Esse metodo eh particularmente util para o calculo de 
-	 * estatisticas e para melhorar a testabilidade.
+	 * Retorna o numero de celulas vivas no ambiente. Esse metodo eh particularmente util para o calculo de estatisticas
+   * e para melhorar a testabilidade.
 	 * 
 	 * @return  numero de celulas vivas.
 	 */
@@ -125,15 +107,13 @@ abstract class GameEngine {
     }
   }
 
-  /* metodo abstrato para verificar se uma celula deve ser mantida viva */
+  /* metodo abstrato para verificar se uma celula deve ser mantida viva. */
   def shouldKeepAlive(i: Int, j: Int): Boolean
   
-  /* metodo abstrato para verificar se uma celula deve (re)nascer */
+  /* metodo abstrato para verificar se uma celula deve (re)nascer. */
   def shouldRevive(i: Int, j: Int): Boolean
 
-  /*
-	 * Verifica se uma posicao (a, b) referencia uma celula valida no tabuleiro.
-	 */
+  /* Verifica se uma posicao (a, b) referencia uma celula valida no tabuleiro. */
   private def validPosition(i: Int, j: Int): Boolean = i >= 0 && i < height && j >= 0 && j < width
 
   /*
@@ -195,11 +175,6 @@ abstract class GameEngine {
     }
     return alive
   }
-
-  def getNumberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
-    val alive = numberOfNeighborhoodAliveCells(i, j)
-
-    return alive
-  }
-
+  /* Retorna o valor do metodo acima para outras funcoes */
+  def getNumberOfNeighborhoodAliveCells(i: Int, j: Int): Int = numberOfNeighborhoodAliveCells(i, j)
 }

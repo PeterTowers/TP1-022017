@@ -2,14 +2,16 @@ package br.unb.cic.poo.gol
 
 import Main.{height, width}
 
+/* Parte do padrao Memento. Armazena as jogadas anteriores e permite desfazer as ultimas. */
 object CareTaker {
-  private final val MEMENTO_SIZE = 10
+  private final val MEMENTO_SIZE = 10 // Define o maximo de jogadas que podem ser desfeitas
 
   private var head = 0
   private var tail = 0
 
   private var stack_of_gens = Array.ofDim[Memento](MEMENTO_SIZE)
 
+  /* Salva a ultima jogada na pilha. */
   def setState(currentGen: Array[Array[Cell]], revivedCells: Int, killedCells: Int): Unit = {
     val generation = Originator.createMemento(currentGen, revivedCells, killedCells)
 
@@ -18,6 +20,7 @@ object CareTaker {
     headTailControl()
   }
 
+  /* Retorna a ultima jogada salva. */
   def getState(currentGen: Array[Array[Cell]]): Array[Array[Cell]] = {
 
     if (head == tail) {
@@ -47,6 +50,7 @@ object CareTaker {
     }
   }
 
+  /* Converte o Memento em uma matriz para o uso do jogo. */
   private def toCells(generation: Memento): Array[Array[Cell]] ={
     var cells = Array.ofDim[Cell](height, width)
 
@@ -62,6 +66,7 @@ object CareTaker {
     return cells
   }
 
+  /* Controla o argumentos head e tail de forma a criar uma lista circular que sera utilizada como pilha. */
   private def headTailControl(): Unit = {
     head += 1
 

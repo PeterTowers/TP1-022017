@@ -1,12 +1,9 @@
 package br.unb.cic.poo.gol
 
-//import java.io.{BufferedReader, InputStreamReader}
-
-/**
- * Relaciona o componente View com o componente Model. 
- * 
- * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
- */
+/** Relaciona o componente View com o componente Model.
+  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br)
+  * Refatorado por Pedro Torres no 2o semestre de 2017.
+  * */
 object GameController {
   var rules = new RuleBook(new ConwayRules)
 
@@ -65,6 +62,7 @@ object GameController {
     GameView.update()
   }
 
+  /* Funcao "Undo": retorna a geracao anterior, ate 10 vezes */
   def undo: Unit = {
     val state = CareTaker.getState(rules.cells)
 

@@ -1,5 +1,6 @@
 package br.unb.cic.poo.gol
 
+/* Regras classicas do Conway que podem ser "injetadas" no programa. */
 class ConwayRules extends Rules {
   val min_keep_alive: Int = 2
   val max_keep_alive: Int = 3

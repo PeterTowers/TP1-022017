@@ -1,6 +1,6 @@
 package br.unb.cic.poo.gol
 
-/* Parte do padrao de projeto Memento. Este objeto cria o "memento" o restaura. */
+/* Parte do padrao de projeto Memento. Cria o "memento", a restauracao fica por conta do CareTaker. */
 object Originator {
 
   /* Metodo para criar o memento. */
@@ -10,8 +10,4 @@ object Originator {
 
     return generation
   }
-
-  /* Metodo para recuperar o memento. */
-  //def restoreMemento: Memento = generation.getGeneration
-
 }
