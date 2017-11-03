@@ -18,7 +18,15 @@ object Statistics {
 
   def getKilledCells = killedCells
 	
-  def recordKill = killedCells += 1 
+  def recordKill = killedCells += 1
+
+	def restoreRevivedCells(revivedCells: Int) = {
+    this.revivedCells = revivedCells
+  }
+
+  def restoreKilledCells(killedCells: Int) = {
+    this.killedCells = killedCells
+  }
 
 	def display = {
 		println("=================================");

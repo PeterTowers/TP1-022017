@@ -1,17 +1,17 @@
 package br.unb.cic.poo.gol
 
-/* Parte do padrao de projeto Memento. Este objeto cria o "memento" e pode o restaurar. */
+/* Parte do padrao de projeto Memento. Este objeto cria o "memento" o restaura. */
 object Originator {
-  var memento = new Memento
 
-  def createMemento(cells: Array[Array[Cell]]): Unit = {
-    memento.setState(cells)
+  /* Metodo para criar o memento. */
+  def createMemento(currentGen: Array[Array[Cell]], revivedCells: Int, killedCells: Int): Memento = {
+    val generation = new Memento
+    generation.setGeneration(currentGen, revivedCells: Int, killedCells: Int)
+
+    return generation
   }
 
-  def restoreMemento(cells: Array[Array[Cell]]): Array[Array[Cell]] = {
-    val state = memento.getState(cells)
-
-    return state
-  }
+  /* Metodo para recuperar o memento. */
+  //def restoreMemento: Memento = generation.getGeneration
 
 }

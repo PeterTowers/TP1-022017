@@ -28,7 +28,7 @@ object GameController {
   /* Tenta ressuscitar uma celula */
   def makeCellAlive(i: Int, j: Int) {
     try {
-      Originator.createMemento(rules.cells)
+      CareTaker.setState(rules.cells, Statistics.getRevivedCells, Statistics.getKilledCells)
 			rules.makeCellAlive(i, j)
 			GameView.update()
 		}
@@ -41,7 +41,7 @@ object GameController {
 
   /* Computa a proxima geracao */
   def nextGeneration {
-    Originator.createMemento(rules.cells)
+    CareTaker.setState(rules.cells, Statistics.getRevivedCells, Statistics.getKilledCells)
     rules.nextGeneration
     GameView.update()
   }
@@ -50,7 +50,7 @@ object GameController {
   def letItGo(generations: Int): Unit = {
 
     for (i <- 1 to generations) {
-      Originator.createMemento(rules.cells)
+      CareTaker.setState(rules.cells, Statistics.getRevivedCells, Statistics.getKilledCells)
       rules.nextGeneration
 
       if (i < generations) { // Garante que a chamada do GameView.update() fora do laco nao sera repetida.
@@ -66,11 +66,15 @@ object GameController {
   }
 
   def undo: Unit = {
-    val state = Originator.restoreMemento(rules.cells)
+    val state = CareTaker.getState(rules.cells)
 
     for (i <- 0 until Main.height)
-      for (j <- 0 until Main.width)
-        rules.cells(i)(j) = state(i)(j)
+      for (j <- 0 until Main.width) {
+        if (state(i)(j).isAlive && !rules.cells(i)(j).isAlive)
+          rules.cells(i)(j).revive
+        else if (!state(i)(j).isAlive && rules.cells(i)(j).isAlive)
+          rules.cells(i)(j).kill
+      }
 
     GameView.update()
   }
