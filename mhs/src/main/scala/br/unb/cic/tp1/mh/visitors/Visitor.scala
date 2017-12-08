@@ -14,7 +14,9 @@ trait Visitor {
   def visitar(exp: ExpLogOr)            : Unit
 
   def visitar(exp: ExpMatSoma)          : Unit
+  def visitar(exp: ExpMatSubt)          : Unit
   def visitar(exp: ExpMatMult)          : Unit
+  def visitar(exp: ExpMatDiv)           : Unit
 
   def visitar(exp: ExpRelIgual)         : Unit
   def visitar(exp: ExpRelMaior)         : Unit
