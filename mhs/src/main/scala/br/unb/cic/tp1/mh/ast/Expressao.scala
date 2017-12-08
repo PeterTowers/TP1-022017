@@ -12,6 +12,8 @@ case class TBool()  extends Tipo
 
 case class TArr(val t1: Tipo, val t2: Tipo) extends Tipo
 
+case class TVazio() extends Tipo
+
 
 trait Expressao {
 
