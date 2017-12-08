@@ -4,9 +4,10 @@ import br.unb.cic.tp1.mh.ast._
 
 trait Visitor {
 
-  def visitar(exp: ValorFloat)          : Unit
   def visitar(exp: ValorInteiro)        : Unit
+  def visitar(exp: ValorFloat)          : Unit
   def visitar(exp: ValorBooleano)       : Unit
+  def visitar(exp: ValorVazio)          : Unit
 
   def visitar(exp: ExpLogAnd)           : Unit
   def visitar(exp: ExpIfThenElse)       : Unit
