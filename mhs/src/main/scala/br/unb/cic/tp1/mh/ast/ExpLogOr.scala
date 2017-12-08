@@ -8,14 +8,14 @@ case class ExpLogOr(lhs: Expressao, rhs: Expressao) extends Expressao {
     val v1 = lhs.avaliar().asInstanceOf[ValorBooleano]
     val v2 = rhs.avaliar().asInstanceOf[ValorBooleano]
 
-    if (v1.v) return ValorBooleano(v1.v)
-    else return ValorBooleano(v2.v)
+    if (v1.v) ValorBooleano(v1.v)
+    else      ValorBooleano(v2.v)
   }
 
   override def verificaTipo: Tipo = {
-    if (lhs.verificaTipo == TBool && rhs.verificaTipo == TBool) return TBool()
+    if (lhs.verificaTipo == TBool() && rhs.verificaTipo == TBool()) TBool()
 
-    return TErro()
+    TErro()
   }
 
   override def aceitar(v: Visitor): Unit = v.visitar(this)
