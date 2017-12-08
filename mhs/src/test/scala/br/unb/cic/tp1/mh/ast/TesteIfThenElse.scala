@@ -9,8 +9,8 @@ class TesteIfThenElse extends FlatSpec with Matchers {
   var v1 = ValorInteiro(2)
   val v2 = ValorInteiro(4)
 
-  val ifThenElse = ExpIfThenElse(ExpRelMenor(v2, v1), ExpMatSoma(v1, v1), v1)
+  val ifThenElse = ExpIfThenElse(ExpRelMenor(v2, v1), ExpMatSoma(v1, v1))
 
-  ifThenElse.avaliar() should be (ValorInteiro(2))
+  ifThenElse.avaliar() should be (v1)
 
 }
