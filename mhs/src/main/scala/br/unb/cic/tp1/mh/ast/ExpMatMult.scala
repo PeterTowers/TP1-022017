@@ -12,16 +12,10 @@ case class ExpMatMult(lhs: Expressao, rhs: Expressao) extends Expressao {
   }
 
   override def verificaTipo: Tipo = {
-    val t1 = lhs.verificaTipo
-    val t2 = rhs.verificaTipo
+    if (lhs.verificaTipo == TInt && rhs.verificaTipo == TInt) TInt()
+    else if (lhs.verificaTipo == TFloat || rhs.verificaTipo == TFloat) TFloat()
 
-    if (t1 == TInt && t2 == TInt) {
-      return TInt()
-    }
-    else if (t1 == TFloat || t2 == TFloat) {
-     return TFloat()
-    }
-    return TErro()
+    TErro()
   }
 
   override def aceitar(v: Visitor): Unit = v.visitar(this)
