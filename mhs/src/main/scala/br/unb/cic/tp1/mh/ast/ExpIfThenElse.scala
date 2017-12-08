@@ -1,19 +1,18 @@
 package br.unb.cic.tp1.mh.ast
 import br.unb.cic.tp1.mh.visitors.Visitor
 
-case class ExpIfThenElse(se: Expressao, entao: Expressao, casoContra: Expressao) extends Expressao {
+case class ExpIfThenElse(se: Expressao, entao: Expressao, casoContra: Expressao = ValorVazio(null)) extends Expressao {
 
-  override def avaliar(): Valor = {
-    val phi = se.avaliar().asInstanceOf[ValorBooleano]
+  private val phi = se.avaliar().asInstanceOf[ValorBooleano]
 
-    if(phi.v) entao.avaliar()
-    else casoContra.avaliar()
-
-  }
+  override def avaliar(): Valor = if (phi.v) entao.avaliar() else casoContra.avaliar()
 
   override def verificaTipo: Tipo = {
-    if(se.verificaTipo == ValorBooleano(true)) return entao.verificaTipo
-    else if (se.verificaTipo == ValorBooleano(false)) return casoContra.verificaTipo
+
+    if (se.verificaTipo == TBool()) {
+      if (phi.v) entao.verificaTipo
+      else casoContra.verificaTipo
+    }
 
     return TErro()
   }
