@@ -32,4 +32,26 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpRef): Unit = { }
 
   override def visitar(exp: Closure): Unit = { }
+
+  override def visitar(exp: ValorFloat): Unit = {}
+
+  override def visitar(exp: ExpLogAnd): Unit = {}
+
+  override def visitar(exp: ExpIfThenElse): Unit = {}
+
+  override def visitar(exp: ExpLogNot): Unit = {}
+
+  override def visitar(exp: ExpLogOr): Unit = {}
+
+  override def visitar(exp: ExpMatMult): Unit = {}
+
+  override def visitar(exp: ExpRelIgual): Unit = {}
+
+  override def visitar(exp: ExpRelMaior): Unit = {}
+
+  override def visitar(exp: ExpRelMaiorIg): Unit = {}
+
+  override def visitar(exp: ExpRelMenor): Unit = {}
+
+  override def visitar(exp: ExpRelMenorIg): Unit = {}
 }

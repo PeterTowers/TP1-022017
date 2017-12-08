@@ -7,10 +7,7 @@ case class ExpRelMaior(lhs: Expressao, rhs: Expressao) extends Expressao {
     val v1 = lhs.avaliar().asInstanceOf[ValorInteiro]
     val v2 = rhs.avaliar().asInstanceOf[ValorInteiro]
 
-    val v3 = v1.asInstanceOf[Int]
-    val v4 = v2.asInstanceOf[Int]
-
-    if (v3 > v4) return ValorBooleano(true) else ValorBooleano(false)
+    if (v1.v > v2.v) return ValorBooleano(true) else ValorBooleano(false)
   }
 
   override def verificaTipo: Tipo = {
@@ -26,10 +23,7 @@ case class ExpRelMaiorIg(lhs: Expressao, rhs: Expressao) extends Expressao {
     val v1 = lhs.avaliar().asInstanceOf[ValorInteiro]
     val v2 = rhs.avaliar().asInstanceOf[ValorInteiro]
 
-    val v3 = v1.asInstanceOf[Int]
-    val v4 = v2.asInstanceOf[Int]
-
-    if (v3 >= v4) return ValorBooleano(true) else ValorBooleano(false)
+    if (v1.v >= v2.v) return ValorBooleano(true) else ValorBooleano(false)
   }
 
   override def verificaTipo: Tipo = {

@@ -4,7 +4,6 @@ import br.unb.cic.tp1.mh.visitors.PPVisitor
 
 import org.scalatest._
 
-
 class TestePPVisitor extends  FlatSpec with Matchers{
 
   behavior of "an application of our visitor"

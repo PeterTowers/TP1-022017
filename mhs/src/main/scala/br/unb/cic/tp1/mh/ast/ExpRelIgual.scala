@@ -8,7 +8,7 @@ case class ExpRelIgual(lhs: Expressao, rhs: Expressao) extends Expressao {
     val v1 = lhs.avaliar().asInstanceOf[ValorInteiro]
     val v2 = rhs.avaliar().asInstanceOf[ValorInteiro]
 
-    if (v1 == v2) return ValorBooleano(true) else ValorBooleano(false)
+    if (v1.v == v2.v) return ValorBooleano(true) else ValorBooleano(false)
   }
 
   override def verificaTipo: Tipo = {
