@@ -64,7 +64,14 @@ class ContadorVisitor extends Visitor {
     contador += 1
   }
 
-  override def visitar(exp: ExpIfThenElse): Unit = {}
+  override def visitar(exp: ExpIfThenElse): Unit = {
+    exp.se.aceitar(this)
+    exp.entao.aceitar(this)
+
+    if (exp.casoContra != ValorVazio()) exp.casoContra.aceitar(this)
+
+    contador += 1
+  }
 
   /* ---------------------------------------------------------------------------------------------------------------- */
   /* -----Expressoes relacionais----- */
@@ -87,9 +94,17 @@ class ContadorVisitor extends Visitor {
     contador += 1
   }
 
-  override def visitar(exp: ExpRelMenor): Unit = { }    // Vazio, pois utiliza ExpRelMaior para determinar seu retorno.
+  override def visitar(exp: ExpRelMenor): Unit = {
+    exp.lhs.aceitar(this)
+    exp.rhs.aceitar(this)
+    contador += 1
+  }
 
-  override def visitar(exp: ExpRelMenorIg): Unit = { }  // Vazio, pois utiliza ExpRelMaiorIg para determinar seu retorno.
+  override def visitar(exp: ExpRelMenorIg): Unit = {
+    exp.lhs.aceitar(this)
+    exp.rhs.aceitar(this)
+    contador += 1
+  }
 
   /* ---------------------------------------------------------------------------------------------------------------- */
   /* -----Funcoes----- */
@@ -120,7 +135,7 @@ class ContadorVisitor extends Visitor {
 
   override def visitar(exp: ExpRef): Unit = contador += 1
 
-  override def visitar(exp: DecFuncao): Unit = { }
+  override def visitar(exp: DecFuncao): Unit = contador += 1
 
   /* ---------------------------------------------------------------------------------------------------------------- */
 }

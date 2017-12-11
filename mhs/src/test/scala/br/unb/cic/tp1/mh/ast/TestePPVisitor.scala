@@ -46,4 +46,50 @@ class TestePPVisitor extends  FlatSpec with Matchers{
     c.sb.toString should be ("(true OR false)")
   }
 
+  behavior of "PPVisitor in an IF, THEN expression"
+  ignore should "be evaluated to IF 12 >= 3 THEN (12 / 3)" in {
+    val ifThen = ExpIfThenElse(ExpRelMaiorIg(ValorInteiro(12), ValorInteiro(3)),
+                                ExpMatDiv(ValorInteiro(12), ValorInteiro(3)))
+
+    val d = new PPVisitor()
+
+    ifThen.aceitar(d)
+
+    println(d.sb.toString)
+
+    d.sb.toString should be ("IF 12 >= 3 THEN (12 / 3)")
+  }
+
+  behavior of "PPVisitor in an IF, THEN, ELSE expression"
+  ignore should "be evaluated as IF 12 < 3 THEN 3 ELSE 12 - 3" in {
+    val v3  = ValorInteiro(3)
+    val v12 = ValorInteiro(12)
+
+    val ifThenElse = ExpIfThenElse(ExpRelMenor(v12, v3), v3, ExpMatSubt(v12, v3))
+
+    val e = new PPVisitor()
+
+    ifThenElse.aceitar(e)
+
+    println(e.sb.toString)
+
+    e.sb.toString should be ("IF 12 < 3 THEN 3 ELSE 12 - 3")
+  }
+
+  behavior of "PPVisitor in a LAMBDA expression"
+  ignore should "be evaluated as LAMBDA (((x) + 1)5)" in {
+    val v1 = ValorInteiro(1)
+    val v5 = ValorInteiro(5)
+
+    val lambda  = new ExpLambda("x", TInt(), ExpMatSoma(ExpRef("x"), ValorInteiro(1)))
+    val app     = new ExpAplicacaoLambda(lambda, ValorInteiro(5))
+
+    val f = new PPVisitor()
+
+    app.aceitar(f)
+
+    println(f.sb.toString)
+
+    f.sb.toString should be ("(((x) + 1)5)")
+  }
 }
