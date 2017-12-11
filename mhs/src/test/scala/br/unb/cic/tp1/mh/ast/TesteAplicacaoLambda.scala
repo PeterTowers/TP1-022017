@@ -9,7 +9,7 @@ class TesteAplicacaoLambda extends FlatSpec with Matchers {
 
   behavior of "an application of a lambda expression"
 
-  it should "be evaluated to Valor(6) when ((x) -> x + 1) 5)" in {
+  it should "be evaluated to Valor(6) when ( ((x) -> x + 1) 5 )" in {
     Ambiente.iniciar()
     val inc = new ExpLambda("x", TInt(), ExpMatSoma(ExpRef("x"), ValorInteiro(1)))
     val app = new ExpAplicacaoLambda(inc, ValorInteiro(5))
