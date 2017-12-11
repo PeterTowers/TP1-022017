@@ -23,7 +23,7 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpMatSoma): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb += '+'
+    sb.append(" + ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
@@ -31,7 +31,7 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpMatSubt): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb += '-'
+    sb.append(" - ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
@@ -39,14 +39,14 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpMatMult): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb += '*'
+    sb.append(" * ")
     exp.rhs.aceitar(this)
     sb += ')'}
 
   override def visitar(exp: ExpMatDiv): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb += '/'
+    sb.append(" / ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
@@ -57,7 +57,7 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpLogAnd): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb.append("AND")
+    sb.append(" AND ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
@@ -71,12 +71,15 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpLogOr): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb.append("OR")
+    sb.append(" OR ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
 
-  override def visitar(exp: ExpIfThenElse): Unit = { }
+  override def visitar(exp: ExpIfThenElse): Unit = {
+    sb.append("IF ")
+    exp.se.aceitar(this)
+  }
 
   /* ---------------------------------------------------------------------------------------------------------------- */
   /* -----Expressoes relacionais----- */
@@ -84,7 +87,7 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpRelIgual): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb.append("==")
+    sb.append(" == ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
@@ -92,7 +95,7 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpRelMaior): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb.append(">")
+    sb.append(" > ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
@@ -100,7 +103,7 @@ class PPVisitor extends Visitor {
   override def visitar(exp: ExpRelMaiorIg): Unit = {
     sb += '('
     exp.lhs.aceitar(this)
-    sb.append(">=")
+    sb.append(" >= ")
     exp.rhs.aceitar(this)
     sb += ')'
   }
@@ -112,7 +115,14 @@ class PPVisitor extends Visitor {
   /* ---------------------------------------------------------------------------------------------------------------- */
   /* -----Funcoes----- */
 
-  override def visitar(exp: ExpLet): Unit = { }
+  override def visitar(exp: ExpLet): Unit = {
+    sb.append("LET ")
+    sb.append(exp.id)
+    sb.append(" = ")
+    sb.append(exp.expNomeada.aceitar(this))
+    sb.append(" IN ")
+    sb.append(exp.corpo.aceitar(this))
+  }
 
   override def visitar(exp: ExpLambda): Unit = { }
 
@@ -120,7 +130,9 @@ class PPVisitor extends Visitor {
 
   override def visitar(exp: ExpAplicacaoNomeada): Unit = { }
 
-  override def visitar(exp: ExpRef): Unit = { }
+  override def visitar(exp: ExpRef): Unit = {
+    sb.append(exp.variavel)
+  }
 
   override def visitar(exp: DecFuncao): Unit = { }
 
