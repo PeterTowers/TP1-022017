@@ -10,11 +10,11 @@ case class ExpIfThenElse(se: Expressao, entao: Expressao, casoContra: Expressao 
   override def verificaTipo: Tipo = {
 
     if (se.verificaTipo == TBool()) {
-      if (phi.v) entao.verificaTipo
-      else casoContra.verificaTipo
+      if (phi.v) return entao.verificaTipo
+      else return casoContra.verificaTipo
     }
 
-    return TErro()
+    TErro()
   }
 
   override def aceitar(v: Visitor): Unit = v.visitar(this)

@@ -8,12 +8,12 @@ case class ExpMatSoma(lhs : Expressao, rhs : Expressao) extends Expressao {
     val v1 = lhs.avaliar().asInstanceOf[ValorInteiro]
     val v2 = rhs.avaliar().asInstanceOf[ValorInteiro]
 
-    return ValorInteiro(v1.v + v2.v)
+    ValorInteiro(v1.v + v2.v)
   }
 
   override def verificaTipo: Tipo = {
-    if (lhs.verificaTipo == TInt() && rhs.verificaTipo == TInt()) TInt()
-    else if (lhs.verificaTipo == TFloat() || rhs.verificaTipo == TFloat()) TFloat()
+    if (lhs.verificaTipo == TInt() && rhs.verificaTipo == TInt()) return TInt()
+    else if (lhs.verificaTipo == TFloat() || rhs.verificaTipo == TFloat()) return TFloat()
 
     TErro()
   }

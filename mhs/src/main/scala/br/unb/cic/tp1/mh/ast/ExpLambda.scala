@@ -20,8 +20,5 @@ class ExpLambda(val id : String, val tipoArgumento: Tipo, val corpo: Expressao) 
     return TArr(t1, t2)
   }
 
-  override def aceitar(v: Visitor): Unit = {
-    v.visitar(this)
-  }
-
+  override def aceitar(v: Visitor): Unit = v.visitar(this)
 }

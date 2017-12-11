@@ -13,7 +13,7 @@ case class ExpLogOr(lhs: Expressao, rhs: Expressao) extends Expressao {
   }
 
   override def verificaTipo: Tipo = {
-    if (lhs.verificaTipo == TBool() && rhs.verificaTipo == TBool()) TBool()
+    if (lhs.verificaTipo == TBool() && rhs.verificaTipo == TBool()) return TBool()
 
     TErro()
   }

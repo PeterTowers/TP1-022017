@@ -13,7 +13,7 @@ object Ambiente {
 
   def iniciar(): Unit = {
     stack.clear()
-    stack += new mutable.HashMap[String, Valor]()
+    stack += new mutable.HashMap[String, Valor]
   }
 
   def atualiza(variavel : String, valor : Valor): Unit = {
@@ -21,7 +21,7 @@ object Ambiente {
       stack += new mutable.HashMap[String, Valor]
     }
 
-    stack += mutable.HashMap(variavel -> valor)
+    stack.last += (variavel -> valor)
   }
 
   def consulta(variavel : String) : Valor = {
@@ -59,8 +59,18 @@ object Ambiente {
 
   def recuperarFuncao(nome: String) = funcoesDeclaradas(nome)
 
-  def novoAmbiente(): Unit = {
-    novoAmbiente(new mutable.HashMap[String, Valor]())
+  def novoAmbiente(): Unit = novoAmbiente(new mutable.HashMap[String, Valor]())
+
+  /* ---------------------------------------------------------------------------------------------------------------- */
+  /* -----Ambiente de memoria para argumentos de funcoes----- */
+  private val argumentoFuncoes  = new mutable.HashMap[String, Valor]
+
+  def declararArgumento(valor: Valor, variavel: String): Unit = {
+    argumentoFuncoes += (variavel -> valor)
   }
+
+  def recuperarArgumento(variavel: String): Valor = argumentoFuncoes(variavel)
+
+
 
 }

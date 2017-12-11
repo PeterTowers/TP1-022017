@@ -1,9 +1,12 @@
 package br.unb.cic.tp1.mh.ast
+import br.unb.cic.tp1.exceptions.ExpressaoInvalida
 import br.unb.cic.tp1.mh.visitors.Visitor
 
 case class ExpRelMaior(lhs: Expressao, rhs: Expressao) extends Expressao {
 
   override def avaliar(): Valor = {
+    if (lhs.verificaTipo != rhs.verificaTipo) throw ExpressaoInvalida()
+
     val v1 = lhs.avaliar().asInstanceOf[ValorInteiro]
     val v2 = rhs.avaliar().asInstanceOf[ValorInteiro]
 
@@ -20,6 +23,8 @@ case class ExpRelMaior(lhs: Expressao, rhs: Expressao) extends Expressao {
 case class ExpRelMaiorIg(lhs: Expressao, rhs: Expressao) extends Expressao {
 
   override def avaliar(): Valor = {
+    if (lhs.verificaTipo != rhs.verificaTipo) throw ExpressaoInvalida()
+
     val v1 = lhs.avaliar().asInstanceOf[ValorInteiro]
     val v2 = rhs.avaliar().asInstanceOf[ValorInteiro]
 

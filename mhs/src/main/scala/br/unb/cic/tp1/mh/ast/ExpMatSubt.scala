@@ -12,8 +12,8 @@ case class ExpMatSubt(lhs: Expressao, rhs: Expressao) extends Expressao {
   }
 
   override def verificaTipo: Tipo = {
-    if (lhs.verificaTipo == TInt() && rhs.verificaTipo == TInt()) TInt()
-    else if (lhs.verificaTipo == TFloat() || rhs.verificaTipo == TFloat()) TFloat()
+    if (lhs.verificaTipo == TInt() && rhs.verificaTipo == TInt()) return TInt()
+    else if (lhs.verificaTipo == TFloat() || rhs.verificaTipo == TFloat()) return TFloat()
 
     TErro()
   }

@@ -112,7 +112,9 @@ class ContadorVisitor extends Visitor {
   }
 
   override def visitar(exp: ExpAplicacaoNomeada): Unit = {
-    exp.argumentoAtual.aceitar(this)
+    val argumentos = exp.argumentoAtual.toArray
+    for (i <- argumentos.indices) argumentos(i).aceitar(this)
+
     contador += 1
   }
 
