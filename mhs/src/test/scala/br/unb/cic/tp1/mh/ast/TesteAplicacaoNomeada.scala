@@ -3,7 +3,7 @@ package br.unb.cic.tp1.mh.ast
 import br.unb.cic.tp1.mh.memoria.Ambiente
 import org.scalatest._
 
-class TesteAplicacaoNomeada  extends FlatSpec with Matchers {
+class TesteAplicacaoNomeada extends FlatSpec with Matchers {
 
   behavior of "a named function def inc (x) = x + 1"
 

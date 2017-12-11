@@ -1,5 +1,6 @@
 package br.unb.cic.tp1.mh.ast
 
+import br.unb.cic.tp1.exceptions.VariavelNaoDeclaradaException
 import br.unb.cic.tp1.mh.memoria.Ambiente
 import org.scalatest._
 
@@ -16,12 +17,21 @@ class TesteAplicacaoLambda extends FlatSpec with Matchers {
     app.avaliar() should be (ValorInteiro(6))
   }
 
-  it should "be evaluated to 20 when let y = 10 in let f = (x -> x +y) in let y = 20 in f 10" in {
+  it should "be evaluated to 20 when let y = 10 in let f = (x -> x + y) in let y = 20 in f = 10" in {
     Ambiente.iniciar()
     val let1 = new ExpLet("y", ValorInteiro(20), ExpAplicacaoLambda(ExpRef("f"), ValorInteiro(10)))
     val let2 = new ExpLet("f", new ExpLambda("x", TInt(), ExpMatSoma(ExpRef("x"), ExpRef("y"))), let1)
     val let3 = new ExpLet("y", ValorInteiro(10), let2)
 
     let3.avaliar() should be (ValorInteiro(20))
+  }
+
+  it should "throw VariavelNaoDeclaradaException" in {
+    Ambiente.iniciar()
+    val let1 = new ExpLet("y", ValorInteiro(20), ExpAplicacaoLambda(ExpRef("f"), ValorInteiro(10)))
+    val let2 = new ExpLet("f", new ExpLambda("x", TInt(), ExpMatSoma(ExpRef("x"), ExpRef("y"))), let1)
+    val let3 = new ExpLet("y", ValorInteiro(10), let2)
+
+    assertThrows[VariavelNaoDeclaradaException](let3.avaliar())
   }
 }

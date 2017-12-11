@@ -13,6 +13,11 @@ class ContadorVisitor extends Visitor {
 
   override def visitar(exp: ValorBooleano): Unit = contador += 1
 
+  override def visitar(exp: Closure): Unit = {
+    exp.corpo.aceitar(this)
+    contador += 1
+  }
+
   override def visitar(exp: ValorVazio): Unit = { } // Deve ser vazio, mesmo, pois a expressao ValorVazio nao faz nada.
 
   /* ---------------------------------------------------------------------------------------------------------------- */
@@ -113,10 +118,7 @@ class ContadorVisitor extends Visitor {
 
   override def visitar(exp: ExpRef): Unit = contador += 1
 
-  override def visitar(exp: Closure): Unit = {
-    exp.corpo.aceitar(this)
-    contador += 1
-  }
+  override def visitar(exp: DecFuncao): Unit = { }
 
   /* ---------------------------------------------------------------------------------------------------------------- */
 }

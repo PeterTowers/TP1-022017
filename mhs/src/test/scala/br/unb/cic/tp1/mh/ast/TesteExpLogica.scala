@@ -2,7 +2,7 @@ package br.unb.cic.tp1.mh.ast
 
 import org.scalatest._
 
-class TesteLogica extends FlatSpec with Matchers {
+class TesteExpLogica extends FlatSpec with Matchers {
 
   behavior of "A NOT expression"
 
@@ -20,10 +20,15 @@ class TesteLogica extends FlatSpec with Matchers {
     val v1 = ValorBooleano(true)
     val v2 = ValorBooleano(true)
 
-    val and = ExpLogAnd(v1, v2)
+    val and1 = ExpLogAnd(v1, v2)
 
-    and.avaliar() should be (ValorBooleano(true))
+    val and2 = ExpLogAnd(v1, ExpLogNot(v2))
+
+    and1.avaliar() should be (ValorBooleano(true))
+
+    and2.avaliar() should be (ValorBooleano(false))
   }
+
 
   behavior of "An OR expression"
 
@@ -31,9 +36,13 @@ class TesteLogica extends FlatSpec with Matchers {
     val v1 = ValorBooleano(false)
     val v2 = ValorBooleano(true)
 
-    val or = ExpLogOr(v1, v2)
+    val or1 = ExpLogOr(v1, v2)
 
-    or.avaliar() should be (ValorBooleano(true))
+    val or2 = ExpLogOr(v1, ExpLogNot(v2))
+
+    or1.avaliar() should be (ValorBooleano(true))
+
+    or2.avaliar() should be (ValorBooleano(false))
   }
 
 }

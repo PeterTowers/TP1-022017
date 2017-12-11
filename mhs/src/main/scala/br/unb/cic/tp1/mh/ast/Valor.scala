@@ -9,7 +9,9 @@ abstract class ValorConcreto[T](valor : T) extends Valor {
   override def avaliar(): Valor = this
 }
 
-case class Closure(id : String, tipoArgumento: Tipo, corpo : Expressao, ambiente : mutable.HashMap[String, Valor]) extends Valor {
+case class Closure(id : String, tipoArgumento: Tipo, corpo : Expressao,
+                   ambiente : mutable.HashMap[String, Valor]) extends Valor {
+
   override def avaliar(): Valor = this
 
   override def verificaTipo: Tipo = TArr(tipoArgumento, corpo.verificaTipo)

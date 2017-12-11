@@ -13,6 +13,8 @@ class PPVisitor extends Visitor {
 
   override def visitar(exp: ValorBooleano): Unit = sb.append(exp.v.toString)
 
+  override def visitar(exp: Closure): Unit = { }
+
   override def visitar(exp: ValorVazio): Unit = { } // Nao deve fazer nada, pois ValorVazio nao faz nada.
 
   /* ---------------------------------------------------------------------------------------------------------------- */
@@ -120,7 +122,7 @@ class PPVisitor extends Visitor {
 
   override def visitar(exp: ExpRef): Unit = { }
 
-  override def visitar(exp: Closure): Unit = { }
+  override def visitar(exp: DecFuncao): Unit = { }
 
   /* ---------------------------------------------------------------------------------------------------------------- */
 }
