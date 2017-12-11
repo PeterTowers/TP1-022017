@@ -2,7 +2,7 @@ package br.unb.cic.tp1.mh.ast
 
 import br.unb.cic.tp1.mh.visitors.Visitor
 
-case class ValorVazio(n: Null) extends ValorConcreto[Null](n) {
+case class ValorVazio(n: Null = null) extends ValorConcreto[Null](n) {
 
   override def verificaTipo: Tipo = TVazio()
 
